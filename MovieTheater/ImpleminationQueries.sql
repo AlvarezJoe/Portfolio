@@ -1,4 +1,4 @@
-/*This project consists of completing  a different group of tasks using a database created by you. The minimum requirements for the database design are:
+﻿/*This project consists of completing  a different group of tasks using a database created by you. The minimum requirements for the database design are:
 Insert at least three tables into your database.
 Create at least three columns per table, be creative when it comes to the data types of your variables.
 In addition, insert 7 records per table.
@@ -90,3 +90,31 @@ WHERE item_id IN(5000,5001,5002);
 SELECT item_id, name, price, discounted_price
 FROM item
 WHERE item_id IN(5000,5001,5002);
+
+--4
+-- This will show the highest and lowest pay rates associated  with the job title 
+
+ Declare @Highestpayrate FLOAT,
+		 @Lowestpayrate FLOAT;
+
+Select @Highestpayrate = Max(Rate),
+	   @Lowestpayrate= Min(Rate)
+FROM position;
+
+Select  @Highestpayrate As HighestRate,
+		@Lowestpayrate As LowestRate;
+
+--5
+--You want to return values to the code calling the procedure. Specify some parameters as OUTPUT parameters. The following example creates a stored procedure that returns the list of departments for a speciﬁc group. In addition to
+-- returning the entire list for the particular Name
+
+CREATE OR ALTER PROCEDURE dbo.pricelist
+   	@Name VARCHAR(60)								
+	
+AS   	
+	SELECT   *
+	FROM 	item
+	WHERE	name = @Name 	
+	ORDER BY Price;   	
+GO
+EXEC dbo.pricelist 'Large ICEE (51oz)';
