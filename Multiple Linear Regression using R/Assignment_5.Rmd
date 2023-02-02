@@ -1,0 +1,160 @@
+---
+title: "Assignment 5"
+output: html_notebook
+---
+
+___Dataset___
+
+The dataset you are going to use for this assignment is called Hitters_Fixed, which is a cleaned version of the Hitters dataset. First, you are going to read the Hitters dataset; then, you will clean it to get the Hitters_Fixed dataset. Take the following steps to do so:
+
+Install the “ISLR” package in R and then load it into R. 
+The “ISLR” contains the Hitters dataset.
+
+Remove the missing data from the Hitters dataset and save the results into Hitters_Fixed. Run the following line of code to do so:
+
+Hitters_Fixed = na.omit(Hitters )
+
+```{r}
+library(ISLR)
+```
+
+```{r}
+Hitters_Fixed=na.omit(Hitters)
+```
+
+That is all. Now you can use the Hitters_Fixed dataset to do this assignment!
+
+Note: If you want more info about the variables in the Hitters_Fixed dataset, you can get it using this link:
+
+https://docs.google.com/document/d/1qKeEoWVnAkrlPDwuq7Uz65ybOzrXpBC2pplRbabcgJ0/edit?usp=sharing
+
+___Questions___
+
+We are going to use all the available data in the Hitters_Fixed dataset to find a model to predict __"Salary"__ (i.e., Salary is the outcome variable)
+
+```{r}
+#Salary is in thousands
+str(Hitters_Fixed)
+```
+
+```{r}
+summary(Hitters_Fixed)
+```
+
+__Question 1)__ Conduct a regression analysis using “Hits” as the only predictor. Answer the following questions:
+
+```{r}
+cor(Hitters_Fixed$Salary, Hitters_Fixed$Hits) 
+```
+
+_Correlation seems low. Doesn’t give me hopes in the practical part of this regression analysis_
+
+```{r}
+salary_simple_out = lm(Salary ~ Hits, data = Hitters_Fixed)
+
+summary(salary_simple_out)
+```
+
+a. Based on your results, discuss BOTH the statistical significance and the quality of the linear equation that uses “Hits” to predict the player’s salary.
+
+_First Impressions: PV of 8.53e-14 indicates statistical significance. R-squared being .1924 is very ugly. An RSE of 406.2 (measured in thousands of dollars) sounds rather significant. The practical significance of this linear regression already feels doomed, but lets be sure_
+
+```{r}
+RSE = 406.2
+
+RSE/mean(Hitters_Fixed$Salary)
+```
+
+_That is an absolutely horrid number to receive from a coefficient of variation. This confirms my suspicions. While the equation derived from the simple linear regression of hits to predict salary is statistically significant, it is most definitely not practically significant._
+
+_Overall, hits is a poor predictor of salary, despite its statistical significance, due to the coefficient of variability being extremely high when being calculated using a mean of salary._
+
+b. Write out the equation that you would use to predict salary based on the player’s number of hits in the 1986 season.
+
+_Predicted Salary = 63.05 - 4.39(Number of Hits)_
+
+__Question 2)__ Use the same regression analysis from question 1 to answer this question.
+
+Assume that Assumption 2 regarding the validity of the linear regression analysis is satisfied. Run an analysis to check for the validity of all other assumptions. Comment on your findings.
+
+```{r}
+plot(Hitters_Fixed$Hits, Hitters_Fixed$Salary)
+
+abline(salary_simple_out, col = "blue")
+```
+
+_I would argue that there is a lack in linearity between hits and salary. There are too many scattered points that don’t follow a linear relationship, thus voiding assumption one. This alone would probably be enough to conclude that further testing for the validity of our linear regression would be uncessary, but as an exercise in validation let us continue to test our other assumptions._
+
+```{r}
+plot(predict(salary_simple_out), residuals(salary_simple_out))
+abline(h=0)
+title("Residuals vs Predicted Values")
+```
+
+_There seems to be a lack of even distribution in the relationship of x and y in the above plot (Residuals vs Predicted Values), voiding assumption four. There is a decline in linearity as salary increases, and even that does not account for the scattered points we receive above the x axis. I’ll proceed to test for assumption three using Shapiro, but again, all previous information of this regression analysis would normally cause me to proceed without conducting further validity testing._
+
+Ho: The residuals follow a normal distribution Ha: The residuals do not follow a normal distribution
+
+```{r}
+shapiro.test(residuals(salary_simple_out))
+```
+
+_Here we can see that the Shapiro test rejects the null hypothesis due to a low PV. Indicating that assumption three (normality) is not valid for this linear regression analysis._
+
+_Overall, we can see that despite proving statistical significance the simple linear regression to predict salary using hits is a poor example of linear regression when checking for validity and when examining in the most simple terms practical signifiance._
+
+__Question 3)__ Apply the best subset selection method to find a good multiple linear equation. DO NOT INCLUDE in the analysis the following four predictors:
+
+CHits, CAtBat, CRuns, CRBI
+
+```{r}
+library(leaps)
+```
+
+```{r}
+best_subset_salary = regsubsets(Salary~.-CHits -CAtBat -CRuns -CRBI, data = Hitters_Fixed, nvmax = length(Hitters_Fixed) - 5)
+
+summary(best_subset_salary)
+```
+
+_Here we have our possible four equations to predict salary using all predictors except: CHits, CAtBat, CRuns, and CRBI. Lets find out which of these equations is best using adjusted R-squared._
+
+```{r}
+summary(best_subset_salary)$adjr2
+```
+
+```{r}
+which.max(summary(best_subset_salary)$adjr2)
+```
+
+_Here we can see that our 9th equation is our best predictor using multiple linear regression with the aforementioned columns. The R-squared for this equation is .479 and it contains AtBat, Hits, Walks, Years, CHmRun, LeagueN, DivisionW, PutOuts, and Assists._
+
+a. Write the equation that includes the predictors that you consider appropriate. JUSTIFY why you selected this equation.
+
+```{r}
+coef (best_subset_salary, 9)
+```
+
+_Our equation is as follows:_
+
+_Predicted Salary = 40.28 - 2.24(AtBat) + 8.99(Hits) + 3.46(Walks) + 10.57(Years) + 2.03(CHRun) + 49.66(LeagueN) - 115.94(DivisionW) + 0.28(PutOuts) + 0.21(Assists)_
+
+_This equation was selected because of all the possible equations of our multiple linear regression, a combination of nine predictors composed of the previously aforementioned columns resulted in the largest adjusted R-squared value._
+
+b. What percentage of the total variability in the salary values does the equation that you chose in 3 a) eliminate?
+
+```{r}
+summary(lm(Salary~.-CHits -CAtBat -CRuns -CRBI -Errors -Runs -RBI -CWalks -NewLeague, data = Hitters_Fixed))
+```
+
+_An R-squared of .498 indicates that 49.8% of variability is eliminated by our equation._
+
+c. Is the prediction error of this equation low or high? Justify your answer (Note: Just give me a well thought, very short, and simple answer for why you consider the error low or high)
+
+```{r}
+RSE = 325.9
+
+RSE/mean(Hitters_Fixed$Salary)
+```
+
+_This is still a considerably high value for a coefficient of variation. Ideally, a coefficient of variation should be less than or equal to ten percent._
