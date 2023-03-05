@@ -1,0 +1,77 @@
+-- DB SELECT
+USE AirbnbDatabase;
+GO
+
+/*
+We are provding reports to the executive level for a marketing campaign held for 
+Airbnb in the New York City Area.*/
+
+-- DASHBOARD IDEAS
+-- PERCENT OF TOTAL PRICE AND LISTINGS
+SELECT neighbourhood_group, SUM(price) AS TotalPrice, COUNT(*) AS TotalListings
+FROM AirbnbOpenData
+GROUP BY neighbourhood_group
+ORDER BY SUM(price) DESC;
+
+-- REVIEWS PER YEAR
+SELECT construction_year, SUM(total_reviews) AS total_reviews
+FROM AirbnbOpenData
+WHERE construction_year != 0
+GROUP BY construction_year
+ORDER BY construction_year DESC;
+
+-- AVERAGE AVAILABILITY PER NEIGHBORHOOD
+SELECT	neighbourhood_group, neighbourhood, room_type, 
+		AVG("availability") AS AverageAvailability
+FROM AirbnbOpenData
+WHERE neighbourhood_group = @neighbourhood_group
+GROUP BY neighbourhood_group, neighbourhood, room_type
+ORDER BY neighbourhood_group, neighbourhood, room_type;
+
+-- PARAMETER AND MATRIX REPORT
+-- SORT BY MIN, MAX, TOTAL LISTINGS, AND TOTAL PRICE
+SELECT 
+	neighbourhood_group, neighbourhood,
+	MIN(Price) AS MinPrice, MAX(Price) AS MaxPrice,
+	COUNT(*) AS TotalListings, SUM(Price) AS TotalPrice
+FROM AirbnbOpenData
+WHERE neighbourhood_group = @NeighbourhoodGroupParam
+GROUP BY neighbourhood_group, neighbourhood
+HAVING MIN(Price) != 0
+ORDER BY neighbourhood_group, neighbourhood;
+
+-- DRILL DOWN REPORT AVERAGE PRICE PER NEIGHBORHOOD GROUP 
+-- SORT BY TOTAL REVIEWS AND AVERAGE PRICE
+-- ADD PARAMETER
+SELECT
+	neighbourhood_group, neighbourhood,
+	room_type, SUM(total_reviews) AS TotalReviews, 
+	AVG(price) AS AveragePrice
+FROM AirbnbOpenData
+WHERE neighbourhood_group = @NeighbourhoodGroupParam
+GROUP BY neighbourhood_group, neighbourhood, room_type
+ORDER BY neighbourhood_group, TotalReviews DESC;
+
+-- MULTIPARAMETER DETAILS
+-- BOTH PARAMETERS
+SELECT	neighbourhood_group, neighbourhood, id, construction_year, price,
+		service_fee, minimum_nights, 
+		CASE WHEN "availability" != 0 THEN "availability"
+		ELSE NULL
+		END AS "availability"
+FROM AirbnbOpenData
+WHERE construction_year != 0
+AND neighbourhood_group = @NeighbourhoodGroupParam
+AND neighbourhood = @NeighbourhoodParam
+ORDER BY neighbourhood_group, neighbourhood, id;
+
+-- NEIGHBORHOOD GROUP PARAMETER 
+SELECT DISTINCT neighbourhood_group
+FROM AirbnbOpenData
+ORDER BY neighbourhood_group;
+
+-- NEIGHBORHOOD PARAMETER 
+SELECT DISTINCT neighbourhood
+FROM AirbnbOpenData
+WHERE neighbourhood_group = @NeighbourhoodGroupParam
+ORDER BY neighbourhood;

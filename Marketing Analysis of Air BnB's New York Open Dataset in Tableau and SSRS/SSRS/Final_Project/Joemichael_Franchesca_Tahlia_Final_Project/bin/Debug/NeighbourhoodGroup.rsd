@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>Airbnb</DataSourceReference>
+      <CommandText>SELECT DISTINCT neighbourhood_group
+FROM AirbnbOpenData
+ORDER BY neighbourhood_group;</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="neighbourhood_group">
+        <DataField>neighbourhood_group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

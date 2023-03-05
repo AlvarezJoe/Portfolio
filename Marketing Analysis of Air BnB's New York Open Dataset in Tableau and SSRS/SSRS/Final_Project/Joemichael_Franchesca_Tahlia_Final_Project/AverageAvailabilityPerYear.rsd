@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>Airbnb</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@NeighbourhoodGroupParam">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT	neighbourhood_group, neighbourhood, room_type, 
+	AVG("availability") AS AverageAvailability
+FROM AirbnbOpenData
+WHERE neighbourhood_group = @NeighbourhoodGroupParam
+GROUP BY neighbourhood_group, neighbourhood, room_type
+ORDER BY neighbourhood_group, neighbourhood, room_type;</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="neighbourhood_group">
+        <DataField>neighbourhood_group</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="neighbourhood">
+        <DataField>neighbourhood</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="room_type">
+        <DataField>room_type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="AverageAvailability">
+        <DataField>AverageAvailability</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
