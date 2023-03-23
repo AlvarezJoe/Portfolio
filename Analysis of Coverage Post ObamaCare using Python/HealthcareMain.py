@@ -148,7 +148,7 @@ while True:
     user_input = menu()
 
     # Selection w/ verification
-    match user_input:
+    match user_input: #python 3.10 or newer
         case 1:
             data_preview(file)
         case 2:
