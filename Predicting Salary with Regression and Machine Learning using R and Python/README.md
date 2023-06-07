@@ -1,2 +1,0 @@
-# Predicting Salary with Regression and Machine Learning using R and Python
-Both Python and R predict salary from the hitters dataset, but the R notebook utilizes multiple linear regression while the Python notebook utilizes random forest regression.
