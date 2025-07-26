@@ -20,6 +20,13 @@ Results-driven data scientist and software engineer with expertise in end-to-end
 - **Software Engineering:** C++, OOP Design, Database Systems (MySQL, SQL Server)
 - **MLOps & Production:** Model Monitoring, Pipeline Automation, Git, Production Deployment
 
+## Data Sources & Availability
+📋 **Note:** Large data files and proprietary content are excluded from this repository per `.gitignore` configurations. Each project README contains detailed information about:
+- Public dataset sources and download instructions
+- Data preprocessing steps and requirements
+- Alternative datasets for replication
+- Sample data availability where applicable
+
 ## Featured Projects
 
 ### 🏥 Healthcare Data Analytics with Python

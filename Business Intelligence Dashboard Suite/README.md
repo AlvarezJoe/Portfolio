@@ -9,9 +9,27 @@ This project demonstrates enterprise-level business intelligence capabilities th
 ## Project Architecture
 
 ### Data Foundation
-- **`Airbnb_Open_Data.csv`**: Complete New York Airbnb dataset
+- **`Airbnb_Open_Data.csv`**: Complete New York Airbnb dataset (excluded from git)
 - **`Data Cleaning Notes.txt`**: Data quality documentation
 - **Database Integration**: SQL Server backend for reporting
+
+## Data Source Information
+
+**Dataset:** Airbnb New York Open Dataset  
+**Source:** [Inside Airbnb](http://insideairbnb.com/get-the-data.html) or [Kaggle Airbnb NYC Dataset](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data)  
+**Note:** Large data files are excluded from git due to size constraints.
+
+**To obtain the dataset:**
+1. Download from Inside Airbnb official website (recommended)
+2. Alternative: Use Kaggle NYC Airbnb dataset
+3. Requirements: CSV format with booking, pricing, and location data
+4. Size: ~40MB+ for complete NYC dataset
+
+**Required data columns:**
+- Property listings with geographic coordinates
+- Pricing information and availability
+- Host and review data
+- Neighborhood and room type classifications
 
 ### Tableau Analytics
 - **`Tableau/Airbnb.twbx`**: Interactive dashboard workbook

@@ -34,6 +34,24 @@ This project examines the change in healthcare coverage across all 50 US states 
 - **matplotlib**: Data visualization
 - **CSV processing**: File I/O operations
 
+## Data Source Information
+
+**Dataset:** Health Insurance Coverage Data  
+**Source:** Healthcare.gov and Census Bureau public datasets  
+**Note:** The `healthinsurance.csv` file is excluded from git due to size constraints. 
+
+**To obtain the dataset:**
+1. Download from public healthcare data repositories
+2. Use similar health insurance coverage datasets from data.gov
+3. Contact repository owner for sample dataset access
+4. The Python script (`HealthcareMain.py`) can work with any CSV containing state-level health metrics
+
+**Required CSV format:**
+- State names/codes
+- Health insurance coverage percentages  
+- Population demographics
+- Pre/post policy implementation data
+
 ## Key Visualizations
 
 1. **Coverage Change Analysis** - State-by-state insurance coverage improvements
