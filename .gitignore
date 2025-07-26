@@ -1,0 +1,58 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C++ build files
+*.exe
+*.o
+*.obj
+*.dll
+*.out
+*.so
+*.a
+*.lib
+*.pdb
+build/
+Debug/
+Release/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Data files
+*.csv
+*.tsv
+*.bak
+*.rds
+*.rdl.data
+*.rptproj.user
+*.pdf
+*.pptx
+*.twbx
+
+# VS Code settings
+.vscode/
+
+# Python virtual environments
+env/
+venv/
+.env/
+.venv/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Misc
+*.swp
+*.swo
+~$*
