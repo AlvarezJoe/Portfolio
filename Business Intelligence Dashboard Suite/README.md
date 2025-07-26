@@ -16,7 +16,7 @@ This project demonstrates enterprise-level business intelligence capabilities th
 ## Data Source Information
 
 **Dataset:** Airbnb New York Open Dataset  
-**Source:** [Inside Airbnb](http://insideairbnb.com/get-the-data.html) or [Kaggle Airbnb NYC Dataset](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data)  
+**Source:** [Kaggle Airbnb NYC Dataset](https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data)  
 **Note:** Large data files are excluded from git due to size constraints.
 
 **To obtain the dataset:**
