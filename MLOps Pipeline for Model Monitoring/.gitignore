@@ -1,0 +1,79 @@
+# MLOps Pipeline - Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Data files (except processed samples)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*.csv
+!data/processed/sample_*.csv
+
+# Model files
+models/*.joblib
+models/*.pkl
+models/*.h5
+
+# Reports
+reports/drift_reports/*.html
+reports/drift_reports/*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Docker
+.dockerignore
