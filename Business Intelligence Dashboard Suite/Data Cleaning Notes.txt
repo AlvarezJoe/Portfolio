@@ -1,0 +1,7 @@
+1. Removed records with LAST REVIEW date errors
+2. Cleaned NEIGHBOURHOOD from nonsense entries
+3. Added NEIGHBOURHOOD GROUP where NEIGHBOURHOOD was not null
+4. Changed MINIMUM NIGHTS value where negative to positive
+5. Changed AVAILABILITY 365 value where negative to positive
+5. Changed AVAILABILITY 365 value where 0 to null
+6. Changed all null REVIEWS PER MONTH to 0

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>Airbnb</DataSourceReference>
+      <CommandText>SELECT construction_year, SUM(total_reviews) AS total_reviews
+FROM AirbnbOpenData
+WHERE construction_year != 0
+GROUP BY construction_year
+ORDER BY construction_year DESC;</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="construction_year">
+        <DataField>construction_year</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="total_reviews">
+        <DataField>total_reviews</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
